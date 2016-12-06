@@ -1,13 +1,16 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8" />
+    <!--echarts--->
+    <script src="{% static "blog/echarts.min.js" %}"}></script>
 
-	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'getshitdone/assets/img/apple-icon.png' %}">
 	<link rel="icon" type="image/png" href="{% static 'getshitdone/assets/img/favicon.png' %}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Xuqh's Blog</title>
+	<title>Current users</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -36,11 +39,7 @@
 	<script src="{% static 'getshitdone/assets/js/get-shit-done.js' %}"></script>
     <script src="{% static 'getshitdone/assets/js/custom.js' %}"></script>
 </head>
-
-
-<body>
-
- <div id="navbar-full">
+<div id="navbar-full">
     <div id="navbar">
     <!--
         navbar-default can be changed with navbar-ct-blue navbar-ct-azzure navbar-ct-red navbar-ct-green navbar-ct-orange
@@ -108,29 +107,83 @@
 
 </div> <!-- end menu-dropdown -->
 
+<body>
 <div class="main" id="post_container">
     <div class="container tim-container" style="max-width:800px; padding-top:100px">
-        {%for post in posts  %}
-
-            <h1><a href="{% url 'posts_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.introduction|linebreaksbr }}</p>
-        {% endfor %}
-{% load staticfiles %}
-        <!--     end extras -->
-    </div>
-    <div class="space"></div>
-<!-- end container -->
+<h3>Number of visitors in history:{{ total }}</h3>
+<div id="chart" style="height: 500px;width: 1000px">
 </div>
-<!-- end main -->
+ </div>
+</div>
+</body>
 <script>
 
+    function randomData() {
+    now = new Date(+now + oneDay);
+    value = value + Math.random() * 21 - 10;
+    return {
+        name: now.toString(),
+        value: [
+            [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+            Math.round(value)
+        ]
+    }
+}
+var myChart = echarts.init(document.getElementById('chart'));
+var data = [];
+var now = +new Date(1997, 9, 3);
+var oneDay = 24 * 3600 * 1000;
+var value = Math.random() * 1000;
+for (var i = 0; i < 1000; i++) {
+    data.push(randomData());
+}
+
+option = {
+    title: {
+        text: 'PageView Now'
+    },
+    tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+            params = params[0];
+            var date = new Date(params.name);
+            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+        },
+        axisPointer: {
+            animation: false
+        }
+    },
+    xAxis: {
+        type: 'time',
+        splitLine: {
+            show: false
+        }
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%'],
+        splitLine: {
+            show: false
+        }
+    },
+    series: [{
+        name: '模拟数据',
+        type: 'line',
+        showSymbol: false,
+        hoverAnimation: false,
+        data: data
+    }]
+};
+ //myChart.setOption(option);
+setInterval(function () {
+//alert("hello")
+    for (var i = 0; i < 5; i++) {
+        data.shift();
+        data.push(randomData());
+    }
+
+    myChart.setOption(option);
+}, 1000);
 
 </script>
-
-</body>
-
-
-
-
-
 </html>
