@@ -40,7 +40,7 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="navbar-full">
+  <div id="navbar-full">
     <div id="navbar">
     <!--
         navbar-default can be changed with navbar-ct-blue navbar-ct-azzure navbar-ct-red navbar-ct-green navbar-ct-orange
@@ -70,7 +70,7 @@
                 <li class="active"><a href="{% url "posts_list" %}">Homepage</a></li>
                   <li class="active"><a href="{% url "heatmap" %}">Heatmap</a></li>
                   <li class="active"><a href="{% url "usermap" %}">Usermap</a></li>
-                  <li class="active"><a href="#gsdk">Current visitors</a></li>
+                  <li class="active"><a href="{% url "current_user" %}">Current visitors</a></li>
                 <li class="dropdown">
                       <a href="#gsdk" class="dropdown-toggle" data-toggle="dropdown">Todo <b class="caret"></b></a>
                       <ul class="dropdown-menu">
