@@ -6,7 +6,6 @@ from blog.models import Post, User_Request
 def register_visitor(request):
     req = User_Request()
     req.path = request.path;
-
     req.REMOTE_ADDR = request.META["REMOTE_ADDR"]
     req.store()
 def posts_list(request):
@@ -34,3 +33,7 @@ def current_user(request):
     total=len(IPs)
     register_visitor(request)
     return render(request,'blog/Current_user.html',{'total':total,})
+
+def writePost(request):
+    register_visitor(request)
+    return render(request, 'blog/writePost.html', {})
