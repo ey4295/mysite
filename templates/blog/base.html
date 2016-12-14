@@ -1,6 +1,4 @@
-
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,11 +96,14 @@
                  </div>
               </form>
               <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#gsdk">Register</a></li>
-
-                    <li><button href="#gsdk" class="btn btn-round btn-default">Sign in</button></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="#gsdk">Welcome {{ user }}</a></li>
+                        <li><button onclick="location.href='{%url 'logout' %}'" class="btn btn-round btn-default">Sign out</button></li>
+                    {% else %}
+                         <li><a href="#gsdk">Not Logged In Yet?</a></li>
+                        <li><button onclick="location.href='{%url 'login' %}'" class="btn btn-round btn-default">Sign in</button></li>
+                    {%  endif%}
                </ul>
-
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
@@ -114,12 +115,10 @@
 </div> <!-- end menu-dropdown -->
 
 
-<div class="main" id="post_container">
-{% block content %}
+<div class="main" id="post_container" >
+{% block content %}ur
 {% endblock %}
-
 <!-- end container -->
-
 <!-- end main -->
 </div>
 {% block bodyRear %}

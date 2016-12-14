@@ -9,7 +9,9 @@ class Post(models.Model):
     author=models.ForeignKey('auth.User')
     title=models.CharField(max_length=200)
     introduction=models.TextField()
-    content=FroalaField()
+    content=FroalaField(options={
+        'height': 800,
+    })
     created_date=models.DateTimeField()
 
     def publish(self):

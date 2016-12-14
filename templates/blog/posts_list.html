@@ -1,7 +1,9 @@
 {% extends 'blog/base.html'%}
 {% load staticfiles %}
 {% block content %}
+
 <section id="cd-timeline" class="cd-container">
+<div class="container tim-container" style="max-width:800px; padding-top:100px">
     {%for post in posts  %}
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img cd-picture">
@@ -9,15 +11,16 @@
 			</div><!-- cd-timeline-img -->
 
 			<div class="cd-timeline-content">
-				<h1><a href="{% url 'posts_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+				<h3><a href="{% url 'posts_detail' pk=post.pk %}">{{ post.title }}</a></h3>
                 <p>{{ post.introduction|linebreaksbr }}</p>
 
 				<span class="cd-date">{{ post.created_date }}</span>
 			</div> <!-- cd-timeline-content -->
 		</div> <!-- cd-timeline-block -->
     {% endfor %}
-
+</div>
 	</section> <!-- cd-timeline -->
+
 {% endblock %}
 
 <!-- end main -->

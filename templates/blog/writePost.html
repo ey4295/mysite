@@ -9,10 +9,11 @@
 {% block content %}
 <div class="container tim-container" style="max-width:800px; padding-top:100px;">
     <h1>New Post</h1>
-    <form method="POST" class="post-form" style="height: 1000px" >
+    <form method="POST" class="post-form" >
         {% csrf_token %}
        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-default" style="float: right">Save</button>
     </form>
 </div>
 {% endblock %}
+
