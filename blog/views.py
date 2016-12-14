@@ -1,8 +1,11 @@
 from time import timezone
 
+from django.forms import CharField
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from froala_editor.widgets import FroalaEditor
+
 from blog.forms import PostForm
 from blog.models import Post, User_Request
 
@@ -52,7 +55,9 @@ def writePost(request):
             return redirect('posts_detail',pk=post.pk)
     else:
         register_visitor(request)
+        #form=CharField(widget=FroalaEditor)
         form=PostForm()
+        #form=FroalaEditor()
     return render(request, 'blog/writePost.html', {'form':form})#FIXIT
 
 def editPost(request,pk):

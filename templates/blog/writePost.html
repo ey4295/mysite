@@ -1,12 +1,17 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
 
+{% block headRear %}
+ {{ form.media }}
+
+{% endblock %}
+
 {% block content %}
-<div class="container tim-container" style="max-width:800px; padding-top:100px">
+<div class="container tim-container" style="max-width:800px; padding-top:100px;">
     <h1>New Post</h1>
-    <form method="POST" class="post-form" >
+    <form method="POST" class="post-form" style="height: 1000px" >
         {% csrf_token %}
-        {{ form.as_p }}
+       {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 </div>

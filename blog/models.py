@@ -2,13 +2,14 @@ from django.db import models
 
 # Create your models here.
 from django.utils import timezone
+from froala_editor.fields import FroalaField
 
 
 class Post(models.Model):
     author=models.ForeignKey('auth.User')
     title=models.CharField(max_length=200)
     introduction=models.TextField()
-    content=models.TextField()
+    content=FroalaField()
     created_date=models.DateTimeField()
 
     def publish(self):

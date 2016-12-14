@@ -105,3 +105,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+#froala
+FROALA_INCLUDE_JQUERY = False
+
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+MEDIA_URL = '/media/'
+
+
+STATICFILES_DIRS = (
+os.path.join(BASE_DIR, "static_media"),
+)

@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from blog import views
 
@@ -10,5 +10,6 @@ urlpatterns=[
     url(r'^post/(?P<pk>\d+)/$',views.posts_detail,name='posts_detail'),
     url(r'^post/write$',views.writePost,name='writePost'),
     url(r'^post/(?P<pk>\d+)/edit/$', views.editPost, name='editPost'),
+    url(r'^froala_editor/', include('froala_editor.urls')),
     #url(r'^usermap',views.posts_list,name='posts_list'),
 ]
