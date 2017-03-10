@@ -12,6 +12,9 @@ urlpatterns=[
     url(r'^post/(?P<pk>\d+)/$',views.posts_detail,name='posts_detail'),
     url(r'^post/write$',views.writePost,name='writePost'),
     url(r'^post/(?P<pk>\d+)/edit/$', views.editPost, name='editPost'),
+    url(r'^sendmsg$',views.sendmsg,name='sendmsg'),
+    url(r'^success$',views.success,name='success'),
+    url(r'^failure$',views.failure,name='failure'),
     url(r'^froala_editor/', include('froala_editor.urls')),
 
     #url(r'^usermap',views.posts_list,name='posts_list'),

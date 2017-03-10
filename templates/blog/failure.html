@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block headRear %}
+ {{ form.media }}
+
+{% endblock %}
+
+{% block content %}
+<div class="container tim-container" style="max-width:800px;
+        padding-top:100px;background-image: url('{% static 'blog/pic/failure.jpg' %}')">
+    <h1>Congratulation!You failed!hahahahah</h1>
+<h1>{{ error }}</h1>
+</div>
+{% endblock %}
+

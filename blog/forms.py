@@ -1,7 +1,7 @@
 from django import forms
 from froala_editor.widgets import FroalaEditor
 
-from blog.models import Post
+from blog.models import Post, Message
 
 
 class PostForm(forms.ModelForm):
@@ -13,3 +13,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model=Post
         fields=('author','title','introduction','content',)
+
+class SendMessage(forms.ModelForm):
+    class Meta:
+        model=Message
+        fields=('content','to_cell')

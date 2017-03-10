@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block headRear %}
+ {{ form.media }}
+
+{% endblock %}
+
+{% block content %}
+<div class="container tim-container" style="width: inherit;height: 720px; padding-top:100px;
+        background: url('{% static 'pic/success.jpg' %}') no-repeat;">
+
+
+                  <h1>You did it!</h1>
+
+
+
+
+</div>
+{% endblock %}
+

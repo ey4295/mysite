@@ -7,8 +7,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
 from froala_editor.widgets import FroalaEditor
 
-from blog.forms import PostForm
-from blog.models import Post, User_Request
+from blog.forms import PostForm, SendMessage
+from blog.models import Post, User_Request, Message
+from blog.tools.send_messages import send_text
+
 
 def register_visitor(request):
     req = User_Request()
@@ -79,3 +81,48 @@ def editPost(request,pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/editPost.html', {'form': form})
+
+@login_required()
+def sendmsg(request):
+    """
+    send a message to cellphones
+    :param request: post or get
+    :return: void
+    """
+    if request.method=="POST":
+        form=SendMessage(request.POST)
+        if form.is_valid():
+            msg=form.save(commit=False)
+            to_cell="+86{0}".format(msg.to_cell)
+            content=msg.content
+            msg.store()
+            try:
+                print (to_cell)
+
+                send_text(to_cell=str(to_cell),message=str(content))
+
+                return redirect('success')
+            except Exception as err:
+                request.session['st']=str(err)
+                return redirect('failure')
+
+    else:
+        form=SendMessage()
+        return render(request,'blog/send_msg.html',{'form':form})
+
+
+def failure(request):
+    """
+    responde a failure page
+    :param request:
+    :return: void
+    """
+    return render(request, 'blog/failure.html',{'error':request.session.get('st')})
+
+def success(request):
+    """
+    responde a success page
+    :param request:
+    :return: void
+    """
+    return render(request, 'blog/success.html')

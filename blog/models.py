@@ -31,3 +31,16 @@ class User_Request(models.Model):
         self.save()
     def __str__(self):
         return (self.path)
+
+class Message(models.Model):
+    """
+    message needed to be sent
+    """
+    content=models.CharField(max_length=2000)
+    to_cell=models.CharField(max_length=20)
+    current_time=models.DateTimeField()
+    def store(self):
+        self.current_time=timezone.now()
+        self.save()
+    def __str__(self):
+        return (self.path)
