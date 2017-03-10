@@ -75,6 +75,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'posts_list' %}">Homepage</a></li>
+                  {% if user.is_authenticated %}
+                    <li class="active"><a href="{% url 'sendmsg' %}">Message</a></li>
+                  {% endif %}
                   <li class="active"><a href="{% url 'heatmap' %}">Heatmap</a></li>
                   <li class="active"><a href="{% url 'usermap' %}">Usermap</a></li>
                   <li class="active"><a href="{% url 'current_user' %}">Current visitors</a></li>
