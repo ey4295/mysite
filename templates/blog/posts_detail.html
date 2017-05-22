@@ -1,24 +1,24 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
-{% block headFront%}
-     <link rel="stylesheet" href="{% static 'icons/css/style.css' %}" media="screen" type="text/css" />
+{% block headFront %}
+    <link rel="stylesheet" href="{% static 'icons/css/style.css' %}" media="screen" type="text/css"/>
 {% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}<!---fixit--->
-    <span onclick="location.href='{% url 'editPost' pk=post.pk %}'" class="iconwrap" >
+        <span onclick="location.href='{% url 'editPost' pk=post.pk %}'" class="iconwrap">
         <span class="long-shadow"></span>
-        <span class="svg-icon flat-shadow" id="shadow-pencil" ></span>
+        <span class="svg-icon flat-shadow" id="shadow-pencil"></span>
     </span>
     {% endif %}
     <div class="container tim-container" style="max-width:800px; padding-top:100px">
         <h1 class="text-center">{{ post.title }}</h1>
-        <p>{{ post.content|safe|linebreaks}}</p>
+        <p>{{ post.content|safe|linebreaks }}</p>
     </div>
     <div class="space"></div>
 
 {% endblock %}
 
 {% block bodyRear %}
-<script src="{% static 'icons/js/index.js' %}"></script>
+    <script src="{% static 'icons/js/index.js' %}"></script>
 {% endblock %}
