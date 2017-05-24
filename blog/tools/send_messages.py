@@ -1,10 +1,5 @@
-#! /usr/bin/python3.4
-# -*- coding: utf-8 -*-
-"""
-Twilio is an SMS gateway service,
-which means  it’s a service that allows
- you to send text messages from your programs
-"""
+
+
 from twilio.rest import TwilioRestClient
 
 account_sid='ACcd65f6468777e1ba55920c1d0f853c66'

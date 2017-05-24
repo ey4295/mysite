@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from blog.forms import PostForm, SendMessage
 from blog.models import Post, User_Request
+from blog.tools.analyse_tools import get_entities, get_tokens, get_pos
 from blog.tools.send_messages import send_text
 
 
@@ -138,3 +140,17 @@ def ner(request):
     :return: template
     """
     return render(request, 'blog/ner.html')
+
+
+def ner_process(request):
+    """
+    process sentence and analyse it ,return result as JSON
+    :param request:
+    :return:
+    """
+    sent=request.POST['sentence']
+    result = {}
+    result['tokens'] = get_tokens(sent)
+    result['pos'] = get_pos(sent)
+    result['ner_dict']=get_entities(sent)
+    return JsonResponse({'result': result})
