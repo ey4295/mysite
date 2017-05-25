@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from blog.forms import PostForm, SendMessage
 from blog.models import Post, User_Request
-from blog.tools.analyse_tools import get_entities, get_tokens, get_pos
+from blog.tools.analyse_tools import get_entities, get_tokens, get_pos, get_sentiment
 from blog.tools.send_messages import send_text
 
 
@@ -155,11 +155,11 @@ def ner_process(request):
     :param request:
     :return:
     """
-    sent=request.POST['sentence']
+    sent = request.POST['sentence']
     result = {}
     result['tokens'] = get_tokens(sent)
     result['pos'] = get_pos(sent)
-    result['ner_dict']=get_entities(sent)
+    result['ner_dict'] = get_entities(sent)
     return JsonResponse({'result': result})
 
 
@@ -169,4 +169,13 @@ def sentiment(request):
     :param request:
     :return: page
     """
-    return render(request,'blog/sentiment.html')
+    return render(request, 'blog/sentiment.html')
+
+
+def sentiment_process(request):
+    """
+    conduct sentiment process
+    :return: JSON data
+    """
+    sent = request.POST['sentence']
+    return JsonResponse(get_sentiment(sent))

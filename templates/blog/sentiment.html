@@ -1,5 +1,9 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+{% block headRear %}
+    <script src="{% static 'sweetalert/lib/sweet-alert.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'sweetalert/lib/sweet-alert.css' %}">
+{% endblock %}
 {% block content %}
     <div class="row tim-row">
         <div class="form-group">
@@ -16,13 +20,102 @@
             </div>
         </div>
     </div>
-    <div class="col-8 col-md-offset-1">
-<pre class="prettyprint prettyprinted">
-        <h3 class="text-center">
-    Analysis Report
-        </h3>
+    <div id="result" style="display: none;">
+        <div class="row tim-row">
+            <div class="col-md-2 col-md-offset-2">
+            <span class="label label-danger " id="res_pos" style="font-size: x-large">
+            </span>
 
 
-</pre>
+            </div>
+            <div id="img_pos" class="col-md-1" style="white-space: nowrap;width:80px;height:80px;">
+            </div>
+        </div>
+        <div class="row tim-row">
+            <div class="col-md-2 col-md-offset-2">
+            <span class="label label-success " id="res_neutral" style="font-size: x-large">
+            </span>
+
+
+            </div>
+            <div id="img_neutral" class="col-md-1" style="white-space: nowrap;width:80px;height:80px;">
+            </div>
+        </div>
+        <div class="row tim-row">
+            <div class="col-md-2 col-md-offset-2">
+            <span id="res_neg" class="label label-default " style="font-size: x-large">
+            </span>
+
+
+            </div>
+            <div id="img_neg" class="col-md-1" style="white-space: nowrap;width:80px;height:80px;">
+            </div>
+        </div>
     </div>
+    <div style="height: 1080px"></div>
+{% endblock %}
+{% block bodyRear %}
+    <script>
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+
+        $('#analyse').click(function () {
+            sentence = $('#sentence').val()
+            $.post({
+                url: "{% url 'sentiment_process' %}",
+                data: {'sentence': sentence},
+                dataType: "json",
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                success: function (response) {
+                    pos = response['pos']
+                    neutral = response['neu']
+                    neg = response['neg']
+                    $('#res_pos').empty()
+                    $('#res_neutral').empty()
+                    $('#res_neg').empty()
+                    $('#img_pos').empty()
+                    $('#img_neutral').empty()
+                    $('#img_neg').empty()
+
+
+                    swal({
+                        title: 'success',
+                        text: 'Analysis Accomplished!',
+                        type: 'success',
+                        confirmButtonText: "show result",
+                        showCancelButton: true,
+
+                    }, function () {
+                        $('#result').fadeIn();
+                        //todo stuff result
+                        // append probability
+                        $('#res_pos').append('Pos <br>' + pos);
+                        $('#res_neutral').append('Neu <br>' + neutral);
+                        $('#res_neg').append('Neg <br>' + neg);
+
+                        //append photos
+                        for (var i = 0; i < Math.round(pos / 0.2); i++) {
+                            $('#img_pos').append('<img src="{% static 'pic/up.png' %}">')
+                        }
+                        for (var i = 0; i < Math.round(neutral / 0.2); i++) {
+                            $('#img_neutral').append('<img src="{% static 'pic/calm.png' %}">')
+                        }
+                        for (var i = 0; i < Math.round(neg / 0.2); i++) {
+                            $('#img_neg').append('<img src="{% static 'pic/down.png' %}">')
+                        }
+
+                    });
+                }
+            });
+
+        })
+    </script>
 {% endblock %}

@@ -7,11 +7,13 @@ import ner
 import nltk
 from nltk import word_tokenize
 
-
 ########################################################################################################
 # Named Entity Recognition tools
 #
 ########################################################################################################
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+
 def get_tokens(sent):
     """
     tokenize sent to get tokens
@@ -38,7 +40,7 @@ def get_entities(sent):
     """
     tagger = ner.SocketNER(host='localhost', port=4295, output_format='slashTags')
     tags = set(['PERSON', 'LOCATION', 'ORGANIZATION', 'DATE'])
-    entities={}
+    entities = {}
     # get verb
     pos_tags = nltk.pos_tag(word_tokenize(sent))
     tag = ''
@@ -60,7 +62,7 @@ def get_entities(sent):
     indices = random.sample(range(count), count)
     for index in indices:
         new_VBS.append(VBS[index])
-    entities['VB']='|'.join(new_VBS)
+    entities['VB'] = '|'.join(new_VBS)
 
     # get entities
     crf_entities = tagger.get_entities(sent)
@@ -68,10 +70,20 @@ def get_entities(sent):
         if key in tags:
             # trick for special form stanford ner generate
             val = nltk.re.search('<{}>(.*?)<'.format(key), val[0]).group(1)
-            entities[key]=val
+            entities[key] = val
     return entities
+
 
 ########################################################################################################
 #  Sentiment Analysis tools
 #
 ########################################################################################################
+def get_sentiment(sent):
+    """
+    conduct sentiment analysis
+    :param sent: sentence to analyse
+    :return: dict of data
+    """
+    analyzer = SentimentIntensityAnalyzer()
+    vs = analyzer.polarity_scores(sent)
+    return vs
