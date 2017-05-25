@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="row tim-row">
+        <div class="col-md-8 col-md-offset-1 ">
+            <table id="activities" class="table table-bordered pagination">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>PERSON</th>
+                    <th>VB</th>
+                    <th>ORGANIZATION</th>
+                    <th>LOCATION</th>
+                    <th>DATE</th>
+                </tr>
+                {% for activity in activities %}
+
+                        <tr class="{{ tr_class }}">
+                            {% for entity in activity %}
+                                <td class=" ">{{ entity }}</td>
+
+                            {% endfor %}
+
+                        </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block bodyRear %}
+    <script>
+
+    </script>
+{% endblock %}

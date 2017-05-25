@@ -6,6 +6,7 @@ from blog.forms import PostForm, SendMessage
 from blog.models import Post, User_Request
 from blog.tools.analyse_tools import get_entities, get_tokens, get_pos, get_sentiment
 from blog.tools.send_messages import send_text
+from django.db import connections
 
 
 def register_visitor(request):
@@ -179,3 +180,17 @@ def sentiment_process(request):
     """
     sent = request.POST['sentence']
     return JsonResponse(get_sentiment(sent))
+
+
+def get_activity(request):
+    """
+    get activity from mysql db
+    :param request:
+    :return:
+    """
+    connection = connections['people_mysql']
+    cursor = connection.cursor()
+    sql = 'select activity_id,name_list.name,activity.PERSON,activity.VB ,activity.ORGANIZATION,activity.LOCATION,activity.DATE from name_list, activity where name_list.person_id=activity.person_id;'
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return render(request, 'blog/activity.html',{'activities':list(result)})
