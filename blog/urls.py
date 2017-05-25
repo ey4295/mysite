@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^failure$', views.failure, name='failure'),
     url(r'^ner$', views.ner, name='ner'),
     url(r'^ner/process$', views.ner_process, name='ner_process'),
+    url(r'^sentiment$',views.sentiment,name="sentment"),
     url(r'^froala_editor/', include('froala_editor.urls')),
     # url(r'^usermap',views.posts_list,name='posts_list'),
 ]

@@ -133,6 +133,13 @@ def success(request):
     return render(request, 'blog/success.html')
 
 
+########################################################################################################
+# Graduation Project Result Display
+#   1.Named entity Analysis
+#   2.Sentiment Analysis
+#   3.DataBase Display
+########################################################################################################
+
 def ner(request):
     """
     Named Entity Recognition Page
@@ -154,3 +161,12 @@ def ner_process(request):
     result['pos'] = get_pos(sent)
     result['ner_dict']=get_entities(sent)
     return JsonResponse({'result': result})
+
+
+def sentiment(request):
+    """
+    conduct sentiment analysis
+    :param request:
+    :return: page
+    """
+    return render(request,'blog/sentiment.html')

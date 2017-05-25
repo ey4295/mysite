@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row tim-row">
+        <div class="form-group">
+            {% csrf_token %}
+            <div class="col-md-2">
+                <input id="analyse" type="button" value="Analyse" class="btn btn-round btn-success btn-lg"/>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group has-success">
+
+                    <input id="sentence" type="text" placeholder="Input" class="form-control"
+                           style="width:%90;height: inherit;font-size: xx-large">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 col-md-offset-1">
+<pre class="prettyprint prettyprinted">
+        <h3 class="text-center">
+    Analysis Report
+        </h3>
+
+
+</pre>
+    </div>
+{% endblock %}
