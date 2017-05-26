@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import connections
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -6,7 +8,15 @@ from blog.forms import PostForm, SendMessage
 from blog.models import Post, User_Request
 from blog.tools.analyse_tools import get_entities, get_tokens, get_pos, get_sentiment
 from blog.tools.send_messages import send_text
-from django.db import connections
+
+
+def test(request):
+    """
+    test page
+    :param request:
+    :return:
+    """
+    return render(request, 'blog/test.html')
 
 
 def register_visitor(request):
@@ -193,4 +203,16 @@ def get_activity(request):
     sql = 'select activity_id,name_list.name,activity.PERSON,activity.VB ,activity.ORGANIZATION,activity.LOCATION,activity.DATE from name_list, activity where name_list.person_id=activity.person_id;'
     cursor.execute(sql)
     result = cursor.fetchall()
-    return render(request, 'blog/activity.html',{'activities':list(result)})
+    paginator = Paginator(result, 25)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        activities = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        activities = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        activities = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/activity.html', {'activities': activities})
