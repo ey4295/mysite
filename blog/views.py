@@ -216,3 +216,11 @@ def get_activity(request):
         activities = paginator.page(paginator.num_pages)
 
     return render(request, 'blog/activity.html', {'activities': activities})
+
+def get_property(request):
+    """
+    get structured property from request
+    :param request:
+    :return:
+    """
+    pass

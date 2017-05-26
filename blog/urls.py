@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^sentiment$', views.sentiment, name="sentment"),
     url(r'^sentiment/process$', views.sentiment_process, name="sentiment_process"),
     url(r'^activity$',views.get_activity,name="activity"),
+    url(r'^property$',views.get_property,name="property"),
     url(r'^test$',views.test,name='test'),
     url(r'^froala_editor/', include('froala_editor.urls')),
     # url(r'^usermap',views.posts_list,name='posts_list'),
