@@ -87,6 +87,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '123456'
     }
+
 }
 
 # Internationalization

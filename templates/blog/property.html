@@ -1,10 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>property</h1>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block headRear %}
+    <style>
+        pre {
+            outline: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .string {
+            color: green;
+        }
+
+        .number {
+            color: darkorange;
+        }
+
+        .boolean {
+            color: blue;
+        }
+
+        .null {
+            color: magenta;
+        }
+
+        .key {
+            color: red;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row tim-row">
+        <div id="result">
+            <pre id="res">
+
+            </pre>
+        </div>
+    </div>
+{% endblock %}
+{% block bodyRear %}
+    <script>
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+        {% for property in properties %}
+         contacts = JSON.parse("{{ property|escapejs }}");
+        //contacts = {'fdj': {'djfk': 1, 'fjkfd': 'fdksaj'}, 'fjasljf': 'asjkdfkl'}
+        var str = JSON.stringify(contacts, undefined, 4);
+        $("#res").append(syntaxHighlight(str))
+        {% endfor %}
+
+    </script>
+{% endblock %}

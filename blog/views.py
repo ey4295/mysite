@@ -1,8 +1,12 @@
+import re
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connections
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from pandas import json
+from pymongo import MongoClient
 
 from blog.forms import PostForm, SendMessage
 from blog.models import Post, User_Request
@@ -217,10 +221,23 @@ def get_activity(request):
 
     return render(request, 'blog/activity.html', {'activities': activities})
 
+
 def get_property(request):
     """
     get structured property from request
     :param request:
     :return:
     """
-    pass
+    client = MongoClient()
+    db = client.people
+    properties = db.properties
+    properties = properties.find()
+    result = []
+    for p in properties:
+        try:
+            p = json.dumps(p)
+            result.append(p)
+        except Exception as err:
+            continue
+
+    return render(request, 'blog/property.html', {"properties": result})
