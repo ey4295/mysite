@@ -20,10 +20,10 @@ def test(request):
     """
     sent = request.POST['sentence']
     result = {}
-    result['tokens'] = get_tokens(sent)
-    result['pos'] = get_pos(sent)
-    result['ner_dict'] = {'PERSON':'AJFD',"VB":'DAFSJ',"LOCATION":"FDJAK"}
-    return JsonResponse({'result':result})
+    result['tokens'] = ["daf", "dafs"]
+    result['pos'] = ["fasd", "adsf"]
+    result['ner_dict'] = {'PERSON': 'AJFD', "VB": 'DAFSJ', "LOCATION": "FDJAK"}
+    return JsonResponse({'result': result})
 
 
 def register_visitor(request):
