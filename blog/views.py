@@ -32,7 +32,7 @@ def test_process(request):
     result = {}
     result['tokens'] = ["daf", "dafs"]
     result['pos'] = ["fasd", "adsf"]
-    result['ner_dict'] = {'PERSON': 'AJFD', "VB": 'DAFSJ', "LOCATION": "FDJAK"}
+    result['ner_dict'] = get_entities("Steve Jobs died at the year of 2002.")
 
     return JsonResponse({'result': result})
 def register_visitor(request):
