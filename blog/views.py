@@ -22,7 +22,7 @@ def test(request):
     result = {}
     result['tokens'] = get_tokens(sent)
     result['pos'] = get_pos(sent)
-    result['ner_dict'] = get_entities(sent)
+    result['ner_dict'] = {'PERSON':'AJFD',"VB":'DAFSJ',"LOCATION":"FDJAK"}
     return JsonResponse({'result':result})
 
 
