@@ -1,5 +1,3 @@
-import re
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connections
@@ -20,7 +18,12 @@ def test(request):
     :param request:
     :return:
     """
-    return render(request, 'blog/test.html')
+    sent = request.POST['sentence']
+    result = {}
+    result['tokens'] = get_tokens(sent)
+    result['pos'] = get_pos(sent)
+    result['ner_dict'] = get_entities(sent)
+    return JsonResponse({'result':result})
 
 
 def register_visitor(request):
