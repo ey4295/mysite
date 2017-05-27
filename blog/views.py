@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connections
@@ -18,14 +20,21 @@ def test(request):
     :param request:
     :return:
     """
+    return render(request, 'blog/test.html')
+
+def test_process(request):
+    """
+
+    :param request:
+    :return:
+    """
     sent = request.POST['sentence']
     result = {}
     result['tokens'] = ["daf", "dafs"]
     result['pos'] = ["fasd", "adsf"]
     result['ner_dict'] = {'PERSON': 'AJFD', "VB": 'DAFSJ', "LOCATION": "FDJAK"}
+
     return JsonResponse({'result': result})
-
-
 def register_visitor(request):
     req = User_Request()
     req.path = request.path;
@@ -173,7 +182,6 @@ def ner_process(request):
     :param request:
     :return:
     """
-
     sent = request.POST['sentence']
     result = {}
     result['tokens'] = get_tokens(sent)

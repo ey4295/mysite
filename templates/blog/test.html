@@ -83,7 +83,7 @@
         $('#analyse').click(function () {
             sentence = $('#sentence').val()
             $.post({
-                url: "{% url 'test' %}",
+                url: "{% url 'test_process' %}",
                 data: {'sentence': sentence},
                 dataType: "json",
                 beforeSend: function (xhr, settings) {
