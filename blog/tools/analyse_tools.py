@@ -6,7 +6,6 @@ import random
 import ner
 import nltk
 from nltk import word_tokenize
-catnltk.download('punkt','/var/www/nltk_data')
 ########################################################################################################
 # Named Entity Recognition tools
 #
