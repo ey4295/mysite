@@ -7,7 +7,9 @@
             <table id="activities" class="table table-bordered table-striped">
                 <thead>
                 <th colspan="1" style="border-right: none;"></th>
-                <th colspan="5" style="border-left: none;border-right: none;text-align: center;font-size:xx-large;">Activity Entities</th>
+                <th colspan="5" style="border-left: none;border-right: none;text-align: center;font-size:xx-large;">
+                    Activity Entities
+                </th>
                 <th colspan="1" style="border-left: none;">{{ activities.paginator.count }} entries</th>
                 </thead>
                 <tr>
@@ -21,35 +23,39 @@
                 </tr>
                 {% for activity in activities %}
 
-                        <tr class="{{ tr_class }}">
-                            {% for entity in activity %}
-                                <td class=" ">{{ entity }}</td>
+                    <tr class="{{ tr_class }}">
+                        {% for entity in activity %}
+                            <td class=" ">{{ entity }}</td>
 
-                            {% endfor %}
+                        {% endfor %}
 
-                        </tr>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
     <div class="row tim-row">
-        <div class="col-md-1 col-md-offset-8" >
+        <div class="col-md-1 col-md-offset-8">
             <ul class="pagination">
                 {% if activities.has_previous %}
-                    <li class="paginate_button"><a href="?page{{ activities.previous_page_number }}"><<</a> </li>
-                    <li class="paginate_button"><a href="?page{{ activities.previous_page_number }}">{{ activities.previous_page_number }}</a> </li>
+                    <li class="paginate_button"><a href="?page{{ activities.previous_page_number }}"><<</a></li>
+                    <li class="paginate_button"><a
+                            href="?page{{ activities.previous_page_number }}">{{ activities.previous_page_number }}</a>
+                    </li>
                 {% endif %}
-                <li class="paginate_button"><a href="#">{{ activities.number }}</a> </li>
-            {% if activities.has_next %}
-                <li class="paginate_button"><a href="?page{{ activities.next_page_number }}">>></a> </li>
-                <li class="paginate_button"><a href="?page{{ activities.next_page_number }}">{{ activities.next_page_number }}</a> </li>
-            {% endif %}
+                <li class="paginate_button"><a href="#">{{ activities.number }}</a></li>
+                {% if activities.has_next %}
+                    <li class="paginate_button"><a
+                            href="?page{{ activities.next_page_number }}">{{ activities.next_page_number }}</a></li>
+                    <li class="paginate_button"><a href="?page{{ activities.next_page_number }}">>></a></li>
+
+                {% endif %}
             </ul>
         </div>
     </div>
 {% endblock %}
 {% block bodyRear %}
     <script>
-$('#result').DataTable()
+        $('#result').DataTable()
     </script>
 {% endblock %}

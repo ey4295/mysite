@@ -32,10 +32,34 @@
 {% endblock %}
 {% block content %}
     <div class="row tim-row">
-        <div id="result">
+        <h1 style="text-align: center;">
+            Structured Properties<br>
+            <small>from MongoDB</small>
+        </h1>
+    </div>
+    <div class="row tim-row">
+        <div id="result" class="col-md-8 col-md-offset-2">
             <pre id="res">
 
             </pre>
+        </div>
+    </div>
+    <div class="row tim-row">
+        <div class="col-md-2 col-md-offset-8">
+            <ul class="pagination">
+                {% if properties.has_previous %}
+                    <li class="paginate_button"><a href="?page{{ properties.previous_page_number }}"><<</a></li>
+                    <li class="paginate_button"><a
+                            href="?page{{ properties.previous_page_number }}">{{ properties.previous_page_number }}</a>
+                    </li>
+                {% endif %}
+                    <li class="paginate_button"><a href="#">{{ properties.number }}</a></li>
+                {% if properties.has_next %}
+                    <li class="paginate_button"><a
+                            href="?page{{ properties.next_page_number }}">{{ properties.next_page_number }}</a></li>
+                    <li class="paginate_button"><a href="?page{{ properties.next_page_number }}">>></a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 {% endblock %}
@@ -63,10 +87,10 @@
             });
         }
         {% for property in properties %}
-         contacts = JSON.parse("{{ property|escapejs }}");
-        //contacts = {'fdj': {'djfk': 1, 'fjkfd': 'fdksaj'}, 'fjasljf': 'asjkdfkl'}
-        var str = JSON.stringify(contacts, undefined, 4);
-        $("#res").append(syntaxHighlight(str))
+            contacts = JSON.parse("{{ property|escapejs }}");
+            //contacts = {'fdj': {'djfk': 1, 'fjkfd': 'fdksaj'}, 'fjasljf': 'asjkdfkl'}
+            var str = JSON.stringify(contacts, undefined, 4);
+            $("#res").append(syntaxHighlight(str) + '<br><br>')
         {% endfor %}
 
     </script>

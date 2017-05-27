@@ -81,16 +81,32 @@
                         {% if user.is_authenticated %}
                             <li class="active"><a href="{% url 'sendmsg' %}">Message</a></li>
                         {% endif %}
-                        <li class="active"><a href="{% url 'heatmap' %}">Heatmap</a></li>
-                        <li class="active"><a href="{% url 'usermap' %}">Usermap</a></li>
+                        <li class="dropdown">
+                            <a href="#gsdk" class="dropdown-toggle" data-toggle="dropdown">Graduation<b
+                                    class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ><a href="{% url 'ner' %}">Ner</a></li>
+                                <li ><a href="{% url 'sentiment' %}">Sentiment</a></li>
+                                <li ><a href="{% url 'property' %}">Property</a></li>
+                                <li ><a href="{% url 'activity' %}">Activity</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#gsdk" class="dropdown-toggle" data-toggle="dropdown">Maps<b
+                                    class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ><a href="{% url 'heatmap' %}">Heatmap</a></li>
+                                <li ><a href="{% url 'usermap' %}">Usermap</a></li>
+                            </ul>
+                        </li>
+
                         <li class="active"><a href="{% url 'current_user' %}">Current visitors</a></li>
                         <li class="dropdown">
                             <a href="#gsdk" class="dropdown-toggle" data-toggle="dropdown">Articles <b
                                     class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'writePost' %}">Write</a></li>
-                                <li><a href="#gsdk">List</a></li>
-
+                                <li ><a href="{% url 'writePost' %}">Write</a></li>
+                                <li ><a href="#gsdk">List</a></li>
                             </ul>
                         </li>
                         <li>

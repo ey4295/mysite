@@ -240,4 +240,14 @@ def get_property(request):
         except Exception as err:
             continue
 
-    return render(request, 'blog/property.html', {"properties": result})
+    paginator = Paginator(result, 2)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        properties = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        properties = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        properties = paginator.page(paginator.num_pages)
+    return render(request, 'blog/property.html', {"properties": properties})
