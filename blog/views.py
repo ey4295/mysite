@@ -170,17 +170,12 @@ def ner_process(request):
     :param request:
     :return:
     """
-    result = {}
-    try:
-        sent = request.POST['sentence']
 
-        result['tokens'] = get_tokens(sent)
-        result['pos'] = get_pos(sent)
-        result['ner_dict'] = get_entities(sent)
-    except Exception as err:
-        f=open('my.log')
-        f.write(err)
-        f.close()
+    sent = request.POST['sentence']
+    result = {}
+    result['tokens'] = get_tokens(sent)
+    result['pos'] = get_pos(sent)
+    result['ner_dict'] = get_entities(sent)
     return JsonResponse({'result': result})
 
 
