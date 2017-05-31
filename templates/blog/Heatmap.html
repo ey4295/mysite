@@ -6,9 +6,9 @@
 
 
 {% block content %}
-    <div class="container tim-container" style="max-width:800px; padding-top:100px">
+    <div id="item_container" class="container tim-container" style="max-width:800px; padding-top:100px">
         <div id="images">
-             <div class="tim-title">
+            <div class="tim-title">
                 <h2>Images</h2>
             </div>
             <br>
@@ -25,54 +25,59 @@
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <h4>Thumbnail Image</h4>
-                    <img src="{% static "getshitdone/assets/img/mockup.png" %}" alt="Thumbnail Image" class="img-thumbnail">
+                    <img src="{% static "getshitdone/assets/img/mockup.png" %}" alt="Thumbnail Image"
+                         class="img-thumbnail">
 
                 </div>
             </div>
-<div class="row">
+            <div class="row">
                 <div class="col-md-7 col-md-offset-0 col-sm-10 col-sm-offset-1">
                     <div class="text-center">
-                        <img src="{% static "getshitdone/assets/img/dulau.jpg"%}" alt="Rounded Image" class="img-rounded img-responsive img-dog">
+                        <img src="{% static "getshitdone/assets/img/dulau.jpg" %}" alt="Rounded Image"
+                             class="img-rounded img-responsive img-dog">
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
-                                <h1 class="text-center">About Hadoop
+                    <h1 class="text-center">About Hadoop
 
-                                <small class="subtitle">Get to know us</small></h1>
-                                <hr>
-                                <p>
-                                Life has been so much easier with the help from Hadoop
-                                </p>
-                                <p>
-                                    We love the web and care deeply for how users interact with a digital product. The idea behind Creative Tim was creating a standard of things we actually need and would personally use inside our web projects. We power businesses and individuals to create better looking web projects around the world.
-                                </p>
+                        <small class="subtitle">Get to know us</small>
+                    </h1>
+                    <hr>
+                    <p>
+                        Life has been so much easier with the help from Hadoop
+                    </p>
+                    <p>
+                        We love the web and care deeply for how users interact with a digital product. The idea behind
+                        Creative Tim was creating a standard of things we actually need and would personally use inside
+                        our web projects. We power businesses and individuals to create better looking web projects
+                        around the world.
+                    </p>
 
 
                 </div>
-</div>
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}
 {% block bodyRear %}
-<script>
-         var heatmap = h337.create({
+    <script>
+        var heatmap = h337.create({
             container: document.getElementById("item_container")
         });
-        var x,y,data;
+        var x, y, data;
         setInterval(function () {
-                $("#item_container").mousemove(function (e) {
-                    pos_x=e.pageX;
-                    pos_y=e.pageY;
-                    data={
-                        x:pos_x,
-                        y:pos_y,
-                        value:1
-                    }
-                    heatmap.addData(data);
-                })
-        },1000);
+            $("#item_container").mousemove(function (e) {
+                pos_x = e.pageX-200;
+                pos_y = e.pageY-600;
+                data = {
+                    x: pos_x,
+                    y: pos_y,
+                    value: 1
+                }
+                heatmap.addData(data);
+            })
+        }, 1000);
         // create configuration object
-
 
 
     </script>
