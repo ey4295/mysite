@@ -45,19 +45,19 @@
         </div>
     </div>
     <div class="row tim-row">
-        <div class="col-md-2 col-md-offset-8">
-            <ul class="pagination">
+        <div class="col-md-4 col-md-offset-8">
+            <ul class="pagination ct-blue">
                 {% if properties.has_previous %}
-                    <li class="paginate_button"><a href="?page{{ properties.previous_page_number }}"><<</a></li>
+                    <li class="paginate_button"><a href="?page={{ properties.previous_page_number }}"><<</a></li>
                     <li class="paginate_button"><a
-                            href="?page{{ properties.previous_page_number }}">{{ properties.previous_page_number }}</a>
+                            href="?page={{ properties.previous_page_number }}">{{ properties.previous_page_number }}</a>
                     </li>
                 {% endif %}
                     <li class="paginate_button"><a href="#">{{ properties.number }}</a></li>
                 {% if properties.has_next %}
                     <li class="paginate_button"><a
-                            href="?page{{ properties.next_page_number }}">{{ properties.next_page_number }}</a></li>
-                    <li class="paginate_button"><a href="?page{{ properties.next_page_number }}">>></a></li>
+                            href="?page={{ properties.next_page_number }}">{{ properties.next_page_number }}</a></li>
+                    <li class="paginate_button"><a href="?page={{ properties.next_page_number }}">>></a></li>
                 {% endif %}
             </ul>
         </div>

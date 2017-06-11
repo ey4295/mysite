@@ -1,5 +1,3 @@
-import re
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import connections
@@ -20,7 +18,13 @@ def test(request):
     :param request:
     :return:
     """
+    from django.contrib.auth.models import User
+    from django.core.paginator import Paginator
+
+    user_list = User.objects.all()
+    paginator = Paginator(user_list, 10)
     return render(request, 'blog/test.html')
+
 
 def test_process(request):
     """
@@ -35,6 +39,8 @@ def test_process(request):
     result['ner_dict'] = get_entities("Steve Jobs died at the year of 2002.")
 
     return JsonResponse({'result': result})
+
+
 def register_visitor(request):
     req = User_Request()
     req.path = request.path;
@@ -252,14 +258,53 @@ def get_property(request):
         except Exception as err:
             continue
 
-    paginator = Paginator(result, 2)  # Show 25 contacts per page
+    paginator = Paginator(result, 5)  # Show 25 contacts per page
     page = request.GET.get('page')
     try:
         properties = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
         properties = paginator.page(1)
+        print ('page not an integer')
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         properties = paginator.page(paginator.num_pages)
+
     return render(request, 'blog/property.html', {"properties": properties})
+
+
+def profile_query(request):
+    """
+    perform profile _query
+    :param request:
+    :return:
+    """
+    return render(request, 'blog/profile_query.html')
+
+
+def query_process(request):
+    """
+    query name in both database & display related information
+    :return: json
+    """
+    name = request.POST['name']
+    client = MongoClient(connect=False)
+    db = client.people
+    properties = db.properties
+    properties = properties.find({'Name': name})
+    result = []
+    for p in properties:
+        try:
+            p = json.dumps(p)
+            result.append(p)
+        except Exception as err:
+            continue
+    print (result)
+    connection = connections['people_mysql']
+    cursor = connection.cursor()
+    sql = 'select activity_id,name_list.name,activity.PERSON,activity.VB ,activity.ORGANIZATION,activity.LOCATION,activity.DATE from name_list, activity' \
+          ' where name_list.person_id=activity.person_id and name=\'{}\';'.format(name)
+    cursor.execute(sql)
+    activities = cursor.fetchall()
+    print (activities)
+    return JsonResponse({"properties": result, "activities": activities})

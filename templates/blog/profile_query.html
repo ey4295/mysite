@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block headRear %}
+    <style>
+        pre {
+            outline: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .string {
+            color: green;
+        }
+
+        .number {
+            color: darkorange;
+        }
+
+        .boolean {
+            color: blue;
+        }
+
+        .null {
+            color: magenta;
+        }
+
+        .key {
+            color: red;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row tim-row">
+        <div class="form-group">
+            {% csrf_token %}
+            <div class="col-md-2">
+                <input id="search" type="button" value="Search" class="btn btn-round btn-success btn-lg"/>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group has-success">
+
+                    <input id="name" type="text" placeholder="enter name" class="form-control"
+                           style="width:%90;height: inherit;font-size: xx-large">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bodyRear %}
+    <script>
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        function show_result(stage) {
+            $('#' + stage).fadeToggle()
+        }
+
+        $('#search').click(function () {
+            name = $('#name').val()
+            $.post({
+                url: "{% url 'query_process' %}",
+                data: {'name': name},
+                dataType: "json",
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                success: function (response) {
+                    alert(response['properties']['Name'])
+                }
+            });
+
+        })
+    </script>
+{% endblock %}

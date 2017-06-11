@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^sentiment/process$', views.sentiment_process, name="sentiment_process"),
     url(r'^activity$', views.get_activity, name="activity"),
     url(r'^property$', views.get_property, name="property"),
+    url(r'^profile/query$',views.profile_query,name='profile_query'),
+    url(r'^query/process$',views.query_process,name='query_process'),
     url(r'^test$', views.test, name='test'),
     url(r'^test/process$', views.test_process, name='test_process'),
     url(r'^froala_editor/', include('froala_editor.urls')),
