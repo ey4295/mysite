@@ -285,7 +285,7 @@ def profile_query(request):
 def query_process(request):
     """
     query name in both database & display related information
-    :return: json
+    :return:  json
     """
     name = request.POST['name']
     client = MongoClient(connect=False)
